@@ -1,0 +1,127 @@
+*{
+	margin: 0;
+	padding: 0;
+	
+}
+a{
+	text-decoration: none;
+}
+a:hover{
+	transition-duration: 0.4s;
+}
+body{
+	background-color: white;
+	font-family:"微软雅黑";
+}
+header{
+	z-index: 1;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	flex-wrap: nowrap;
+	height: 50px;
+	padding: 10px;
+	background-color: #f5f6f7;
+	border-bottom: 2px solid #CCCCCC;
+}
+#logo{
+	flex:0 0 125px;
+	font-size: 30px;
+	background-color: #ca0c16;
+	height: inherit;
+	padding: inherit;
+	box-shadow: 4px 4px 4px #76060c;
+}
+#search{
+	display: flex;
+	flex: 0 0 350px;
+	box-shadow: 2px 1px 5px black;
+	border-radius: 10px;
+}
+#search input[type="search"]{
+	width: 300px;
+	border: none;
+	border-radius: 10px 0 0 10px;
+	padding: 10px;
+	background-color: #EEEEEE;
+}
+#search input[type="button"]{
+	width: 50px;
+	height: 36px;
+	background-color: #f44444;
+	border: none;
+	border-radius: 0 10px 10px 0;
+	cursor: pointer;
+}
+#search input[type="button"]:hover{
+	transition-duration: 0.4s;
+	background-color: #646FB0;
+	color: white;
+}
+header>a{
+	flex-shrink: 0;
+	width: 100px;
+	height: 50px;
+	padding: 10px;
+	font-size: 20px;
+	text-align: center;
+	line-height: 50px;
+	background-color: #ca0c16;
+	color: black;
+	box-shadow: 4px 4px 4px #76060c;
+}
+header>a:hover{
+	background-color: #646FB0;
+	color: white;
+}
+#login_regiter{
+	display: flex;
+	flex: 0 1 250px;
+	justify-content: space-around;
+}
+#login_regiter a{
+	width: 100px;
+	height: 50px;
+	font-size: 20px;
+	text-align: center;
+	line-height: 50px;
+	border-radius: 50px;
+	background-color: #ca0c16;
+	color: black;
+	box-shadow: 2px 3px 2px #545e5d;
+}
+#login_regiter a:hover{
+	background-color: #646FB0;
+	color: white;
+}
+#user{
+	flex-shrink: 0;
+	font-size: 25px;
+	margin-right: 20px;
+}
+#user  a{
+	position: relative;
+	color: #000000;
+}
+#user:hover .hidden{
+	z-index: 1;
+	opacity: 1;
+	transform: translateY(0px);
+	transition-duration: 0.4s;
+}
+.hidden{
+	font-size: 20px;
+	position: absolute;
+	opacity: 0;
+	transform: translateY(20px);
+	width: 100px;
+	list-style: none;
+	background-color: white;
+	box-shadow: 1px 1px 3px 1px black;
+}
+.hidden li{
+	border: 1px solid #CCCCCC;
+}
+.hidden li:hover{
+	background-color: #ca0c16;
+}

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>注册</title>
+		<link rel="stylesheet" type="text/css" href="../../static/css/register.css"/>
+		<script src="../../static/js/ajax.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			window.onload = ()=>{
+				var message = document.getElementsByTagName("p")[0];
+				var userName = document.getElementById("userName");
+				var password = document.getElementById("password");
+				var submit = document.getElementsByTagName("input")[2];
+				var register = document.getElementById("register");
+				document.onkeyup = ()=>{
+					if(userName.value != "" && password.value != ""){
+						submit.disabled = false;
+						submit.style.backgroundColor = "#ca0c16";
+					}
+					else{
+						submit.disabled = true;
+						submit.style = "";
+					}
+				}
+				submit.onclick = ()=>{
+					if(userName.value == ""){
+						message.innerText = "请输入用户名";
+					}else if(password.value == ""){
+						message.innerText = "请输入密码";
+					}else{
+						ajax({
+							type:"POST",
+							//注册接口
+							url:"http://127.0.0.1:8080/user/register",
+							data:{
+								userName:userName.value,
+								password:password.value
+							},
+							dataType:"json",
+							contentType:"application/json; charset=utf-8",
+							timeout:1000,
+							success:xmlhttp=>{
+								let json = JSON.parse(xmlhttp.responseText);
+								if (json.status == 1){
+									//注册成功
+									localStorage.setItem("id", json.data.id);
+									localStorage.setItem("userName", userName.value);
+									register.innerHTML = '<h2>注册</h2>'+
+														'<div id="success">'+
+														'<h3>成功注册</h3>'+
+														'<a href="../../../../../../loveYouLife/webapp/WEB-INF/html/index.html">返回首页</a>'+
+														'</div>';
+								}else{
+									//注册失败
+									alert("注册失败！");
+								}
+							},
+							error:()=>alert("请求失败！")
+						});
+					}
+				}
+				//失去焦点后检查用户名是否存在
+				userName.onblur = ()=>{
+					ajax({
+						type:"GET",
+						url:"http://127.0.0.1:8080/user/userNameExist",
+						data:{
+							userName:userName.value
+						},
+						success:xmlhttp=>{
+							let json = JSON.parse(xmlhttp.responseText);
+							if(json.status == 1){
+								message.innerText = "用户名已存在";
+							}
+						},
+						error:()=>alert("请求失败！")
+					});
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<div id="logo">
+			<h1>信息分享</h1>
+		</div>
+		<div id="wrap">
+			<div id="register">
+				<h2>注册</h2>
+				<form action="" method="post">
+					<p></p>
+					<input type="text" name="userName" id="userName" placeholder="请填写用户名称">
+					<br/>
+					<input type="password" name="password" id="password" placeholder="请填写密码"/>
+					<br/>
+					<br/>
+					<input type="button" value="注册">
+				</form>
+			</div>
+		</div>
+	</body>
+</html>

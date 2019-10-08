@@ -1,0 +1,108 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+body{
+	background-color: white;
+}
+a{
+	text-decoration: none;
+	color: black;
+}
+#wrap{
+	display: flex;
+	margin-top: 80px;
+	justify-content: flex-start;
+}
+#user{
+	flex-shrink: 0;
+	width: 300px;
+	height: 50px;
+	margin-right: 25px;
+	border-bottom: 1px solid #CCCCCC;
+}
+#user p{
+	display: inline-block;
+	font-size: 20px;
+	margin-left: 30px;
+}
+#user button{
+	padding: 4px 15px;
+	margin-left: 90px;
+	color: #ca0c16;
+	background-color: white;
+	border: 1px solid #ca0c16;
+	border-radius: 5px;
+	cursor: pointer;
+}
+#user button:hover{
+	background-color: #fde3e4;
+}
+#allArticle{
+	border: 1px solid #999999;
+	background-color: #f5f6f7;
+	width: 960px;
+}
+.outer{
+	height: 205px;
+}
+.article{
+	background-color: #fff;
+	padding: 14px 30px;
+	margin-bottom: 2px;
+}
+.article:hover{
+	background-color: #f5f6f7;
+}
+.article span{
+	margin-right: 10px;
+	color: #666;
+}
+.article > a:nth-of-type(1){
+	font-size: 27px;
+	display: block;
+	height: 35px;
+	margin-bottom: 5px;
+}
+.article a:hover{
+	transition-duration: 0.3s;
+	color: #00B3FF;
+}
+.article a:nth-of-type(2){
+	display: block;
+	height: 20px;
+	overflow: hidden;
+	margin-bottom: 10px;
+}
+.article a:nth-of-type(3){
+	float: right;
+}
+#indexBox{
+	height: 39px;
+	margin: 30px auto;
+	display: flex;
+	justify-content:  space-around;
+}
+.index{
+	display: inline-block;
+	height: 37px;
+	width: 37px;
+	background-color: #f6f6f6;
+	border: 1px solid #ddd;
+	text-decoration: none;
+	text-align: center;
+	line-height: 37px;
+}
+.index:hover{
+	transition-duration: 0.4s;
+	background-color: white;
+}
+.noArticle{
+	color: #999999;
+	display: block;
+	text-align: center;
+	font-size: 35px;
+	height: 40px;
+	padding: 100px;
+	width: inherit;
+}

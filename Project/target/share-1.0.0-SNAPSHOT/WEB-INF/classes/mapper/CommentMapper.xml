@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shareinfo.dao.CommentDao">
+    <resultMap id="CommentResultMap" type="com.shareinfo.entity.Comment">
+        <id property="commentId" column="commentid"></id>
+        <result property="artId" column="artid"></result>
+        <result property="commentUserId" column="id"></result>
+        <result property="commentContent" column="commentcontent"></result>
+        <result property="time" column="time"></result>
+        <result property="commentUserName" column="username"></result>
+    </resultMap>
+
+    <parameterMap id="CommentParameterMap" type="com.shareinfo.entity.Comment">
+        <parameter property="commentId" resultMap="CommentResultMap"></parameter>
+        <parameter property="artId" resultMap="CommentResultMap"></parameter>
+        <parameter property="commentUserId" resultMap="CommentResultMap"></parameter>
+        <parameter property="commentContent" resultMap="CommentResultMap"></parameter>
+        <parameter property="time" resultMap="CommentResultMap"></parameter>
+        <parameter property="commentUserName" resultMap="CommentResultMap"></parameter>
+    </parameterMap>
+
+   <!--  获取文章评论信息 -->
+    <select id="getCommentByArtId" resultMap="CommentResultMap">
+        SELECT commentid , artid , user.id , commentcontent , time ,user.username
+        FROM comment,user
+        WHERE artid = #{artid}
+        AND comment.id = user.id
+    </select>
+
+    <!--  获取文评论点赞数 -->
+    <select id="getCommentLikeNumByCommentId" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM commentlike
+        WHERE commentid = #{commentId}
+    </select>
+
+    <!-- 获取评论的用户 -->
+    <select id="getCommentUserIdByCommentId" resultType="java.lang.Integer">
+        SELECT id FROM comment
+        WHERE commentid = #{commentId}
+    </select>
+
+    <select id="getArtIdByCommentId" resultType="java.lang.Integer">
+        SELECT artid FROM comment
+        WHERE commentid = #{commentId}
+    </select>
+
+    <select id="checkCommentIsExist" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM comment
+        WHERE commentid = #{commentId}
+    </select>
+
+    <select id="checkCommentLikeIsExist" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM commentlike
+        WHERE commentid = #{commentId}
+        AND id = #{id}
+    </select>
+
+    <!-- 添加评论 -->
+    <insert id="addComment" parameterMap="CommentParameterMap"
+            useGeneratedKeys="true" keyProperty="commentId"
+            keyColumn="commentid">
+        INSERT INTO
+        comment (artid , id , commentcontent , time)
+        VALUES (#{artId} , #{commentUserId} , #{commentContent} , NOW())
+    </insert>
+
+    <insert id="addCommentLike">
+        INSERT INTO commentlike
+        VALUES (#{commentId} , #{id} , now())
+    </insert>
+
+    <!-- 删除评论 -->
+    <delete id="removeCommentByCommentId">
+        DELETE FROM comment
+        WHERE commentid = #{commentId}
+        AND id = #{commentUserId}
+        AND artId = #{artId}
+    </delete>
+
+    <!-- 取消赞 -->
+    <delete id="removeCommentLike">
+        DELETE FROM commentlike WHERE
+        commentid = #{commentId}
+    </delete>
+
+</mapper>

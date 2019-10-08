@@ -1,0 +1,60 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+body{
+	background-color: white;
+}
+.write{
+	width: 1000px;
+	margin: 50px auto 0 auto;
+	border: 1px solid #999;
+}
+form{
+	width: inherit;
+	font-size: 24px;
+}
+#title{
+	width: inherit;
+	background-color: white;
+	border: none;
+	border-bottom: 1px solid #999;
+	height: 100px;
+	padding: 2px 0;
+	font-size: 45px;
+}
+#sortName{
+	width: 100px;
+	height: 30px;
+}
+form p{
+	float: right;
+	margin-right: 300px;
+	color: red;
+}
+#content{
+	font-size: 25px;
+	resize: none;
+	width: inherit;
+	margin-top: 5px;
+	height: 500px;
+	border: none;
+	border-top: 1px solid #999999;
+	border-bottom: 1px solid #999999;
+	background-color: white;
+}
+.button{
+	display: inline-block;
+	text-decoration: none;
+	line-height: 200%;
+	color: black;
+	margin-left: 250px;
+	font-size: 23px;
+	text-align: center;
+	width: 120px;
+	border: none;
+	cursor: pointer;
+}
+a{
+	background-color: #ca0c16;
+}

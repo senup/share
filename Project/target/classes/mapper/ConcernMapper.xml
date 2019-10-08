@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shareinfo.dao.ConcernDao">
+    <resultMap id="ConcernResultMap" type="com.shareinfo.entity.Concern">
+        <id property="id" column="id"></id>
+        <id property="concernId" column="concernid"></id>
+        <result property="userName" column="username"></result>
+        <result property="concernUserName" column="concernusername"></result>
+    </resultMap>
+
+    <select id="getAllConcernById" resultMap="ConcernResultMap">
+        SELECT u1.id AS id  , u1.username AS username , u2.id AS concernid , u2.username AS concernusername
+        FROM user u1,concern,user u2
+        WHERE u1.id = concern.id
+        AND u2.id = concern.concernid
+        AND concern.id = #{id}
+    </select>
+
+
+    <select id="getUserConcernedNum" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM concern
+        WHERE concernid = #{concernId}
+    </select>
+
+    <select id="isConcernOtherPeople" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM concern
+        WHERE id = #{id}
+        AND concernid = #{concernId}
+    </select>
+
+    <insert id="insertConcern">
+        INSERT INTO concern VALUES(#{id} , #{concernId} , now())
+    </insert>
+
+    <delete id="deleteConcern">
+        DELETE FROM concern
+        WHERE id = #{id}
+        AND concernid = #{concernId}
+    </delete>
+</mapper>

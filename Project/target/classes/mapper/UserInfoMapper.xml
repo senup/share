@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shareinfo.dao.UserInfoDao">
+    <resultMap id="userInfoResultMap" type="com.shareinfo.entity.UserInfo">
+        <id property="id" column="id"></id>
+        <result property="userName" column="username"></result>
+        <result property="nickName" column="nickname"></result>
+        <result property="gender" column="gender"></result>
+        <result property="time" column="time"></result>
+        <result property="password" column="password"></result>
+    </resultMap>
+
+    <update id="updateUserInfo" parameterType="com.shareinfo.entity.UserInfo">
+        UPDATE info
+        <set>
+            <if test="motto != null">motto = #{motto},</if>
+            <if test="nickName != null">nickname = #{nickName},</if>
+            <if test="gender!= null">gender = #{gender},</if>
+        </set>
+        WHERE id = #{id}
+	</update>
+
+    <select id="getUserInfoById" resultMap="userInfoResultMap">
+        SELECT user.id ,user.username,gender,motto,time,nickname,password FROM
+        info,user
+        WHERE info.id = user.id
+        AND info.id = #{id}
+    </select>
+
+    <insert id="insertNullUserInfo">
+        INSERT INTO info (id , time) VALUES (#{id},NOW())
+    </insert>
+
+</mapper>

@@ -1,0 +1,77 @@
+	*{
+			
+			padding: 0;
+			margin: 0;
+		}
+		body{
+			
+			
+		}
+		header{
+			
+			/*opacity: 0.2;*/
+		}
+		.DL{
+			display: none;
+			border:2px solid white ;
+			position: absolute;
+			height: 180px;
+			width: 400px;
+			left: 750px;
+			top: 200px;
+			/*background-color: chartreuse;*/
+			opacity:1;
+			z-index: 88;!important
+		}
+		.nav{
+				display: flex;
+			    background-color: #fff;
+    			border-color: #f0f0f0;
+				top: 0;
+    			border-width: 0 0 1px;
+    			min-height: 50px;
+    			margin-bottom: 20px;
+    			border: 1px solid transparent;
+    			height: 58px;
+		}
+		.wid-limit{
+			width: 1440px;
+			margin: 0 auto;
+			
+		}
+		.nav .wid-limit .nav-left{
+			width: 255px;
+			  float: left;
+		}
+		.nav .wid-limit .nav-left a{
+			
+			  height: 56px;
+    			padding: 0;
+		}
+		.nav .wid-limit .nav-left a img{
+			width: 100px;
+			height: 56px;
+			
+			
+		}
+		.wid-limit .nav-center {
+			width: 945px;
+			/*background: red;*/
+			height: 56px;	
+			float: left;		
+		}
+			.wid-limit .nav-right {
+			width: 235px;
+			/*background: red;*/
+			height: 56px;	
+			float: right;		
+		}
+		 .wid-limit .nav-right .rig-1{
+		 	float: right;
+		 	padding-top: 6px;
+		 }
+		 .wid-limit .nav-right .rig-1 .btn{
+		 	/*height: 58px;
+		 	line-height: 50px;*/
+		 	
+		 }

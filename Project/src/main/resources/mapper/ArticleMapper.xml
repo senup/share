@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shareinfo.dao.ArticleDao">
+
+    <resultMap id="ArticleResultMap" type="com.shareinfo.entity.Article">
+        <id property="artId" column="artid"></id>
+        <result property="id" column="id"></result>
+        <result property="sortId" column="sortid"></result>
+        <result property="title" column="title"></result>
+        <result property="time" column="time"></result>
+        <result property="content" column="content"></result>
+        <result property="userName" column="username"></result>
+        <result property="sortName" column="sortname"></result>
+    </resultMap>
+
+    <resultMap id="sortResultMap" type="com.shareinfo.entity.Sort">
+        <id property="sortId" column="sortid"></id>
+        <result property="sortName" column="sortname"></result>
+    </resultMap>
+
+    <parameterMap id="ArticleParameterMap" type="com.shareinfo.entity.Article">
+        <parameter property="artId" resultMap="ArticleResultMap"></parameter>
+        <parameter property="id" resultMap="ArticleResultMap"></parameter>
+        <parameter property="sortId" resultMap="ArticleResultMap"></parameter>
+        <parameter property="title" resultMap="ArticleResultMap"></parameter>
+        <parameter property="time" resultMap="ArticleResultMap"></parameter>
+        <parameter property="content" resultMap="ArticleResultMap"></parameter>
+    </parameterMap>
+
+    <parameterMap id="ArticleLikeParameterMap" type="com.shareinfo.entity.Article">
+        <parameter property="artId" resultMap="ArticleResultMap"></parameter>
+        <parameter property="id" resultMap="ArticleResultMap"></parameter>
+    </parameterMap>
+
+    <select id="listUserAllArticleById" resultMap="ArticleResultMap">
+		SELECT user.username ,user.id , artid , article.sortid , sortname , title , content , time  FROM user,article,sort
+        WHERE user.id = article.id
+        AND user.id = #{id}
+        AND article.sortid = sort.sortid
+        ORDER BY article.time DESC
+	</select>
+
+    <select id="getArticleSortByAid" resultMap="sortResultMap">
+        SELECT sort.sortname FROM article , sort
+        WHERE article.sortid = sort.sortid
+        AND article.artid = #{artid}
+    </select>
+
+    <select id="getAllArticleBySortId" resultMap="ArticleResultMap">
+        SELECT user.username ,user.id , artid , article.sortid , sortname , title , content , time  FROM user,article,sort
+        WHERE user.id = article.id
+        AND article.sortid = sort.sortid
+        AND sort.sortid = #{sortid}
+        ORDER BY article.time DESC
+    </select>
+
+    <select id="getArticleVisitNumByArtId" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM articlevisit
+        WHERE artid = #{artId}
+    </select>
+
+    <select id="getAllArticle" resultMap="ArticleResultMap">
+        SELECT user.username ,user.id , artid , article.sortid , sortname , title , content , time  FROM user,article,sort
+        WHERE user.id = article.id
+        AND article.sortid = sort.sortid
+        ORDER BY article.time DESC
+    </select>
+
+    <select id="countArticleLikeNum" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM articlelike WHERE artid = #{artId}
+    </select>
+
+    <select id="countArticleVisitNum" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM articlevisit WHERE artid = #{artId}
+    </select>
+
+    <select id="getArticleByArtId" resultMap="ArticleResultMap">
+        SELECT user.username ,user.id , artid , article.sortid , sortname , title , content , time  FROM user,article,sort
+        WHERE user.id = article.id
+        AND article.sortid = sort.sortid
+        AND artid = #{artId}
+    </select>
+
+    <select id="getAllArticleByTitle" resultMap="ArticleResultMap">
+        SELECT user.username ,user.id , artid , article.sortid , sortname , title , content , time  FROM user,article,sort
+        WHERE user.id = article.id
+        AND article.sortid = sort.sortid
+        AND (article.title  LIKE CONCAT('%',#{title},'%') OR article.content  LIKE CONCAT('%',#{title},'%'))
+    </select>
+
+    <select id="checkLikeExist" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM articlelike
+        WHERE artid = #{artId}
+        AND id = #{id}
+    </select>
+
+    <select id="getArticleNum" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM article
+        WHERE id = #{id}
+    </select>
+
+    <!--  Mybatis执行完插入语句后，useGeneratedKeys返回主键值,自动将自增长值赋值给对象article的属性id。因此，可通过article对应的getter方法获取 -->
+    <insert id="userUploadArticle" useGeneratedKeys="true" keyProperty="artId"
+            keyColumn="artid"  parameterMap="ArticleParameterMap">
+		INSERT INTO
+		article (title,content,time,id,sortid)
+		VALUES
+		(#{title},#{content},now(),#{id},#{sortId})
+	</insert>
+
+    <insert id="addArticleLikeNum">
+          INSERT INTO articlelike
+          VALUES(#{artId},#{id},NOW())
+    </insert>
+
+    <insert id="recordArticleVisit">
+        INSERT INTO articlevisit
+        (artid , id , time , detailedtime)
+        VALUES(#{artId} , #{visitId} , NOW() , NOW())
+    </insert>
+
+    <update id="modifyArticle" parameterType="com.shareinfo.entity.Article">
+      UPDATE article
+        <set>
+            <if test="sortId != null" >sortid = #{sortId},</if>
+            <if test="title != null" >title = #{title},</if>
+            <if test="content != null" >content = #{content},</if>
+            modifytime = now(),
+        </set>
+        WHERE artid = #{artId}
+    </update>
+
+    <delete id="deleteArticleByArtId">
+        DELETE FROM article WHERE artid = #{artId}
+    </delete>
+
+    <delete id="removeArticleLike">
+        DELETE FROM articlelike WHERE artid=#{artId} and id = #{id}
+    </delete>
+
+</mapper>

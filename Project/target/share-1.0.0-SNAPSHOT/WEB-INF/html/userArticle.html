@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>用户的文章</title>
+		<link rel="stylesheet" type="text/css" href="../../static/css/userArticle.css"/>
+		<script src="../../static/js/ajax.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			window.onload = ()=>{
+				let userName = document.getElementById("user").children[0];
+				userName.innerText = localStorage.getItem("userName");
+				//获取大容器
+				let allArticle = document.getElementById("allArticle");
+				//获取内容容器
+				let outer = document.getElementsByClassName("outer")[0];
+				ajax({
+					type:"GET",
+					url:"http://127.0.0.1:8080/article/listUserAllArticleById",
+					data:{
+						id:localStorage.getItem("id")
+					},
+					success:xmlhttp=>{
+						let json = JSON.parse(xmlhttp.responseText);
+						if(json.status == 1){ 
+							//设置一页中内容块的最大数量
+							let contentCount = 6;
+							//计算分页数
+							let maxPageCount = Math.ceil(json.data.length / contentCount);
+							//设置页面跳转按钮
+							let indexBox = document.getElementById("indexBox");
+							indexBox.style.width = maxPageCount * 60 + "px";
+							for (let i = 0; i < maxPageCount; i++) {
+								let a = document.createElement("a");
+								a.innerText = i + 1;
+								a.className = "index";
+								indexBox.appendChild(a);
+							}
+							//获取按钮集合
+							let indexList = document.getElementsByClassName("index");
+							for (let i = 0; i < indexList.length; i++) {
+								//按钮设置响应函数
+								indexList[i].onclick = ()=>{
+									//初始化内容块的最大数量
+									contentCount = 6;
+									//设置被点击按钮的样式
+									for (let i = 0; i < indexList.length; i++) {
+										indexList[i].style = "";
+									}
+									indexList[i].style.backgroundColor = "#ca0c16";
+									indexList[i].style.color = "white";
+									//设置数据索引值起始值
+									let DataIndex = i * contentCount;
+									//当前页面显示内容块数量
+									contentCount = json.data.length - DataIndex >= contentCount ? contentCount : json.data.length - DataIndex;
+									//设置容器高度
+									outer.style.height =  contentCount * 118 + "px";
+									allArticle.style.height = outer.offsetHeight + 80 + "px";
+									//清空容器
+									outer.innerHTML = "";
+									//加入内容块
+									for (let i = 0; i < contentCount; i++) {
+										let div = document.createElement("div");
+										div.className = "article";
+										div.innerHTML = '<a href = "articlepage.html"></a>'+
+														'<a href = "articlepage.html"></a>'+
+														'<span>2019/5/25</span>'+
+														'<span></span>'+
+														'<a>删除</a>';
+										outer.appendChild(div);
+									//内容块加载数据
+										let article = document.getElementsByClassName("article")[i];
+										let title = article.children[0];
+										let content = article.children[1];
+										let time = article.children[2];
+										let sortName = article.children[3];
+										let del = article.childNodes[4];
+										
+										let articleid = json.data[DataIndex].artId;
+										title.innerText = json.data[DataIndex].title;
+										content.innerText = json.data[DataIndex].content;
+										
+										title.onclick = content.onclick = ()=>{
+											localStorage.setItem("articleid", articleid);
+										}
+										
+										time.innerText = json.data[DataIndex].time;
+										sortName.innerText = json.data[DataIndex].sortName;
+										
+										del.onclick = ()=>{
+											if(confirm("你确定要删除")){
+												ajax({
+													type:"GET",
+													url:"http://127.0.0.1:8080/article/deleteArticleByArtId",
+													data:{
+														artId:articleid,
+														id:localStorage.getItem("id")
+													},
+													success:xmlhttp =>{
+														let json = JSON.parse(xmlhttp.responseText);
+														if(json.status == 1){
+																location.href = "userArticle.html";
+														}
+													},
+													error:()=>alert("请求失败！")
+												});
+											}
+										}
+										//数据索引值自增
+										DataIndex++;
+									}
+								}
+								let event = document.createEvent("MouseEvents");
+								event.initEvent("click", true, true);
+								indexList[0].dispatchEvent(event);
+							}
+						}else{
+							outer.innerHTML = '<p class = "noArticle">用户没有写过文章</p>';
+						}
+					},
+					error:()=>alert("请求失败")
+				});
+			}
+		</script>
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="user">
+				<p></p>
+				<button type="button">关注</button>
+			</div>
+			<div id="allArticle">
+				<div class="outer"></div>
+				<nav id="indexBox"></nav>
+			</div>
+		</div>
+	</body>
+</html>

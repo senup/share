@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>写文章</title>
+		<link rel="stylesheet" type="text/css" href="../../static/css/write.css"/>
+		<script src="../../static/js/ajax.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			window.onload = ()=>{
+				var title = document.getElementById("title");
+				var sortName = document.getElementById("sortName");
+				var message = document.getElementsByTagName("p")[0];
+				var content = document.getElementById("content");
+				var button = document.getElementsByTagName("button")[0];
+				if(localStorage.getItem("id")){
+					document.onkeyup = ()=>{
+						if(title.value != "" && content.value != ""){
+							button.disabled = false;
+							button.style.backgroundColor = "#ca0c16";
+						}
+						else{
+							button.disabled = true;
+							button.style = "";
+						}
+					}
+					button.onclick = ()=>{
+						if(title.value == ""){
+							message.innerText = "请输入标题！";
+						}else if(content.value == ""){
+							message.innerText = "请输入文章内容";
+						}else{
+							ajax({
+								type:"POST",
+								url:"http://127.0.0.1:8080/article/userUploadArticle",
+								data:{
+									id:localStorage.getItem("id"),
+									title:title.value,
+									content:content.value,
+									sortId:parseInt(sortName.value)
+								},
+								dataType:"json",
+								contentType:"application/json; charset=utf-8",
+								timeout:1000,
+								success:xmlhttp=>{
+									let json = JSON.parse(xmlhttp.responseText);
+									if(json.status == 1){
+										message.innerText = "发布成功！";
+									}else{
+										message.innerText = "发布失败";
+									}
+								},
+								error:()=>alert("请求失败！")
+							});
+						}
+					}
+				}else{
+					alert("您还未登录！");
+					location.href = "login.html";
+				}
+			}
+		</script>
+	</head>  
+	<body>
+		<div class="write">
+			<form>
+				<input type="text" name="title" id="title" placeholder="请输入标题"/>
+				<br/>
+				文章类别：<select id="sortName">
+					<option value ="1">java</option>
+					<option value ="2">c语言</option>
+					<option value ="3">python</option>
+				</select>
+				<p></p>
+				<br/>
+				<textarea id="content" placeholder="输入文章内容"></textarea>
+				<br/>
+			</form>
+			<button type="button" class="button" disabled="disabled">发布文章</button>
+			<a href="../../../../../../loveYouLife/webapp/WEB-INF/html/index.html" class="button">回到主页</a>
+		</div>
+	</body>
+</html>

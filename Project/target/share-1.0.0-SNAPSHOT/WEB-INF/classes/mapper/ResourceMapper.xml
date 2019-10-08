@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shareinfo.dao.ResourceDao">
+    <resultMap id="ResourceResultMap" type="com.shareinfo.entity.Resource">
+        <id property="resourceId" column="resourceId"/>
+        <result property="resourceTitle" column="resourceTitle"></result>
+        <result property="resourceLink" column="resourceLink"></result>
+        <result property="resourceCode" column="resourceCode"></result>
+        <result property="resourceSize" column="resourceSize"></result>
+        <result property="resourceIntro" column="resourceIntro"></result>
+        <result property="uploadUser" column="uploadUser"></result>
+        <result property="dateTime" column="dateTime"></result>
+        <result property="validDate" column="validDate"></result>
+    </resultMap>
+
+    <insert id="insertResource" parameterType="com.shareinfo.entity.Resource">
+        insert into resource
+        (resourceTitle,resourceLink,resourceCode,resourceSize,
+        resourceIntro,uploadUser,dateTime,validDate)
+        values
+        (#{resourceTitle},#{resourceLink},#{resourceCode},
+        #{resourceSize},
+        #{resourceIntro},#{uploadUser},now(),#{validDate})
+    </insert>
+
+    <select id="findAllResource" resultType="com.shareinfo.entity.Resource" resultMap="ResourceResultMap">
+        select * from resource
+    </select>
+
+    <select id="findResourceById" parameterType="Integer" resultType="com.shareinfo.entity.Resource" resultMap="ResourceResultMap">
+        select * from resource
+        where resourceId = #{resourceId}
+    </select>
+
+    <select id="findResourceByTitle" parameterType="String" resultMap="ResourceResultMap" resultType="com.shareinfo.entity.Resource">
+        select * from resource
+        where resourceTitle  like CONCAT('%',#{resourceTitle},'%');
+    </select>
+
+    <delete id="deleteResource" parameterType="Integer">
+        delete from resource
+        where resourceId = #{resourceId}
+    </delete>
+
+    <update id="editResource" parameterType="com.shareinfo.entity.Resource" >
+        update resource
+        <set>
+            <if test="resourceTitle != null"> resourceTitle= #{resourceTitle},</if>
+            <if test="resourceLink != null"> resourceLink = #{resourceLink},</if>
+            <if test="resourceCode != null">resourceCode = #{resourceCode},</if>
+            <if test="resourceSize != null">resourceSize = #{resourceSize},</if>
+            <if test="resourceIntro != null">resourceIntro = #{resourceIntro},</if>
+            <if test="validDate != null">validDate = #{validDate},</if>
+            dateTime = now(),
+        </set>
+        where resourceId = #{resourceId}
+    </update>
+
+</mapper>

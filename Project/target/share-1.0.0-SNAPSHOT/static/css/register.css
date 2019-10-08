@@ -1,0 +1,80 @@
+body{
+	background-color: white;
+}
+#wrap{
+	display: flex;
+	width: inherit;
+	height:	inherit;
+	justify-content: center;
+}
+#logo{
+	font-size: 20px;
+	margin-left: 100px;
+}
+#register{
+	align-self: center;
+	text-align: center;
+	width: 450px;
+	height: 300px;
+	border: 1px solid #ccc;
+	margin-top: 100px;
+}
+#register h2{
+	color: #4d4d4d;
+	margin: 0;
+	padding: 10px;
+	height: 40px;
+	border-radius: 10px 10px 0 0;
+	border-bottom: 1px solid #ccc;
+}
+#register p{
+	margin: 0;
+	color: red;
+	height: 20px;
+}
+#userName{
+	width: 280px;
+	height: 20px;
+	padding: 10px;
+	margin-bottom: 10px;
+	border-radius: 5px;
+	border: 1px solid #ccc;
+}
+#userName:hover{
+	border-color: #999999;
+}
+#userName:focus{
+	border-color: #3399ea;
+}
+#password{
+	width: 280px;
+	height: 20px;
+	padding: 10px;
+	border-radius: 5px;
+	border: 1px solid #D3D3D3;
+}
+#password:hover{
+	border-color: #999999;
+}
+#password:focus{
+	border-color: #3399ea;
+}
+#register input[type="button"]{
+	margin: 20px 50px;
+	width: 300px;
+	height: 40px;
+	border-radius: 5px;
+	border: none;
+	font-size: 24px;
+	cursor: pointer;
+}
+#success{
+	font-size: 23px;
+}
+#success a{
+	text-decoration: none;
+	color: black;
+	padding: 5px 10px;
+	background-color: #ca0c16;
+	border-radius: 5px;
+}

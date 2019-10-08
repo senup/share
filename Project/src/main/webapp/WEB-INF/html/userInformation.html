@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>个人信息</title>
+		<link rel="stylesheet" type="text/css" href="../../static/css/userInformation.css"/>
+		<script src="../../static/js/ajax.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			window.onload = function(){
+				var wrap = document.getElementById("userInformation");
+				var form = document.getElementsByTagName("form")[0];
+				var userName = document.getElementById("userName");
+				var gender1 = document.getElementsByName("gender")[0];
+				var gender2 = document.getElementsByName("gender")[1];
+				var motto = document.getElementById("motto");
+				var passwordDiv = document.getElementById("password");
+				var message = document.getElementsByTagName("p")[0];
+				var changeInformation = document.getElementsByTagName("a")[0];
+				var changePassword = document.getElementsByTagName("a")[1];
+				var confirm = document.getElementsByTagName("a")[2];
+				
+				ajax({
+					type:"GET",
+					url:"http://127.0.0.1:8080/user/findAll",
+					data:{
+						id:localStorage.getItem("id")
+					},
+					timeout:1000,
+					success:xmlhttp=>{
+						let json = JSON.parse(xmlhttp.responseText);
+						if(json.status == 1){
+							userName.value = json.data[4].userName;
+							if(json.data[4].gender == null)
+								gender1.checked = true;	
+							else
+								gender2.checked = true;
+							motto.value = json.data[4].motto;
+						}else{
+							//获取信息失败
+						}
+					},
+					error:()=>alert("请求失败")
+				});
+				
+				passwordDiv.style.display = "none";
+				confirm.style.display = "none";
+				//点击修改信息后
+				changeInformation.onclick = ()=>{
+					changeInformation.style.display = "none";
+					changePassword.style.display = "none";
+					userName.disabled = false;
+					motto.disabled = false;
+					gender1.disabled = false;
+					gender2.disabled = false;
+					confirm.style.display = "inline-block";
+					confirm.onclick = ()=>{
+						if(userName.value == ""){
+							message.innerText = "请输入用户名！";
+						}else{
+							ajax({
+								type:"post",
+								url:"http://127.0.0.1:8080/userInfo/updateUserInfo",
+								data:{
+									id:localStorage.getItem("id"),
+									gender:gender1.checked ? gender1.value : gender2.value,
+									motto:motto.value
+								},
+								dataType:"json",
+								contentType:"application/json; charset=utf-8",
+								timeout:1000,
+								success:xmlhttp=>{
+									let json = JSON.parse(xmlhttp.responseText);
+									if(json.status == 1){
+										userName.disabled = true;
+										motto.disabled = true;
+										gender1.disabled = true;
+										gender2.disabled = true;
+										confirm.style.display = "none";
+										changeInformation.style.display = "inline-block";
+										changePassword.style.display = "inline-block";
+										message.innerText = "信息修改成功！";
+									}else{
+										message.innerText = "信息修改失败！";
+									}
+								},
+								error:()=>alert("请求失败！")
+							});
+						}
+					}
+				}
+				changePassword.onclick = ()=>{
+					changeInformation.style.display = "none";
+					changePassword.style.display = "none";
+					wrap.style.height = "500px";
+					confirm.style.display = "inline-block";
+					passwordDiv.style.display = "block";
+					let password = passwordDiv.children[0];
+					let newpassword = passwordDiv.children[2];
+					let checkpassword = passwordDiv.children[4];
+					
+					confirm.onclick = ()=>{
+						if(password.value == ""){
+							message.innerText = "请输入密码";
+						}else if(newpassword.value != checkpassword.value){
+							message.innerHTML = "两次输入的密码不一致";
+						}else {
+							ajax({
+								type:"POST",
+								url:"http://127.0.0.1:8080/user/passwordChange",
+								data:{
+									userName:localStorage.getItem("userName"),
+									password:password.value,
+									newpassword:newpassword.value
+								},
+								dataType:"json",
+								contentType:"application/json; charset=utf-8",
+								timeout:1000,
+								success:xmlhttp=>{
+									let json = JSON.parse(xmlhttp.responseText);
+									if(json.status == 1){
+										wrap.style.height = "340px";
+										passwordDiv.style.display = "none";
+										confirm.style.display = "none";
+										changeInformation.style.display = "inline-block";
+										changePassword.style.display = "inline-block";
+										message.innerText = "密码修改成功！";
+									}else{
+										message.innerText = "密码不正确！";
+									}
+								},
+								error:()=>alert("请求失败！")
+							})
+						}
+					}
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<div id="logo">
+			<h1>信息分享</h1>
+		</div>
+		<div id="wrap">
+			<div id="userInformation">
+				<h2>个人信息</h2>
+				<form class="form">
+					用户名：<input type="text" name="userName" id="userName" placeholder="输入修改的用户名" disabled="disabled">
+					<br/>
+					<div>
+						性别：<input type="radio" name="gender" value="男" disabled="disabled"/>男
+						<input type="radio" name="gender" value="女" disabled="disabled"/>女
+					</div>
+					<div>
+						个性签名：
+					</div>
+					<textarea id="motto" maxlength="50" disabled="disabled"></textarea>
+					<br/>
+					<div id="password">
+						旧密码：<input type="password" name="password"  placeholder="请输入旧密码">
+						<br/>
+						新密码：<input type="password" name="Newpassword" placeholder="请输入新密码">
+						<br/>
+						确认密码：<input type="password" name="passwordCheck"  placeholder="再次输入密码">
+						<br/>						
+					</div>
+					<p></p>
+					<nav>
+						<a href="#">修改信息</a>
+						<a href="#">修改密码</a>
+						<a href="#">确认修改</a>
+						<a href="../../../../../../loveYouLife/webapp/WEB-INF/html/index.html">回到主页</a>
+					</nav>
+				</form>
+			</div>
+		</div>
+	</body>
+</html>

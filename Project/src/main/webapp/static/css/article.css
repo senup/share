@@ -1,0 +1,84 @@
+*{
+padding: 0;
+margin: 0;
+list-style: none;
+
+	
+}
+body{
+	
+	background-color: #F3F5F6;
+}
+
+header{
+	
+	
+	
+}
+.nav{
+	position: relative;
+    height: 68px;
+	background-color: #F3F5F6;
+}
+.nav .nav-btn .issue{
+	display: block;
+    float: right;
+    margin: 16px 24px 0 0;
+    width: 88px;
+    height: 36px;
+    /*line-height: 25px;*/
+   vertical-align: middle;
+    text-align: center;
+    font-size: 14px;
+    color: #fff;
+    background: #37f;
+    border-radius: 18px;
+    outline: none;
+
+}
+#title{
+	outline: none;
+	padding: 28px 0 12px;
+    width: 100%;
+    font-weight: 700;
+    font-size: 20px;
+    color: #1c1f21;
+    line-height: 30px;
+    box-sizing: content-box;
+    border: none;
+}
+.cdiv{
+	background: #F3F5F6;
+	
+	
+}
+.con{
+	width: 800px;
+    height: auto;
+    margin: 0 auto;
+    padding: 0 32px;
+    box-sizing: border-box;
+    background: #fff;
+    box-shadow: 0 8px 16px 0 rgba(28,31,33,.1);
+    border-radius: 12px 12px 0 0;
+}
+#sel{
+	padding-left: 10px;
+	width: 100px;
+	height: 30px;
+	line-height: 30px;
+	outline: none;
+	font-weight:700 ;
+}
+.content{
+	margin-top: 10px;
+	width: 100%;
+
+}
+textarea{
+	outline: none;
+	overflow-y:scroll; 
+	border: none;
+	font-size: 18px!important;
+
+}

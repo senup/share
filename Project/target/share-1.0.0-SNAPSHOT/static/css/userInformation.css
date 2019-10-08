@@ -1,0 +1,82 @@
+body{
+	background-color: white;
+}
+#wrap{
+	display: flex;
+	width: inherit;
+	height: inherit;
+	justify-content: center;
+}
+#logo{
+	font-size: 20px;
+	margin-left: 100px;
+}
+#userInformation{
+	align-self: center;
+	text-align: center;
+	width: 500px;
+	height: 340px;
+	border: 1px solid #ccc;
+	margin-top: 100px;
+}
+#userInformation h2{
+	color: #4d4d4d;
+	margin: 0;
+	padding: 10px;
+	height: 40px;
+	border-radius: 10px 10px 0 0;
+	border-bottom: 1px solid #ccc;
+}
+.form{
+	width: 320px;
+	padding: 0 80px;
+	text-align: right;
+}
+#userName{
+	width: 200px;
+	height: 20px;
+	padding: 10px;
+	border: 1px solid #D3D3D3;
+	margin-top: 20px;
+}
+.form div:first-of-type{
+	margin-top: 10px;
+	margin-right: 144px;
+}
+.form div:nth-of-type(2){
+	display: inline-block;
+	margin-right: 223px;
+	margin-top: 10px;
+}
+#motto{
+	width: 300px;
+	height: 60px;
+	resize: none;
+	margin-top: 10px;
+}
+#password input{
+	width: 200px;
+	height: 20px;
+	padding: 10px;
+	margin-top: 10px;
+	border: 1px solid #D3D3D3;
+}
+.form p{
+	margin: 0;
+	color: red;
+	text-align: center;
+	height: 20px;
+}
+nav{
+	display: flex;
+	justify-content: space-around;
+}
+nav a{
+	display: inline-block;
+	margin-top: 10px;
+	text-decoration: none;
+	background-color: #ca0c16;
+	color: #000000;
+	padding: 5px;
+	border-radius: 7px;
+}

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shareinfo.dao.ReplyDao">
+
+    <resultMap id="ReplyResultMap" type="com.shareinfo.entity.Reply">
+        <id property="replyId" column="replyid"></id>
+        <result property="id" column="id"></result>
+        <result property="replyContent" column="replycontent"></result>
+        <result property="time" column="time"></result>
+        <result property="commentId" column="commentid"></result>
+    </resultMap>
+
+    <parameterMap id="ReplyParameterMap" type="com.shareinfo.entity.Reply">
+        <parameter property="replyId" resultMap="ReplyResultMap"></parameter>
+        <parameter property="id" resultMap="ReplyResultMap"></parameter>
+        <parameter property="replyContent" resultMap="ReplyResultMap"></parameter>
+        <parameter property="time" resultMap="ReplyResultMap"></parameter>
+        <parameter property="commentId" resultMap="ReplyResultMap"></parameter>
+    </parameterMap>
+
+    <select id="getReplyListByCommentId" resultMap="ReplyResultMap">
+        SELECT *
+        FROM reply
+        WHERE commentid = #{commentId}
+    </select>
+
+    <select id="getReplyLikeNumByCommentId" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM replylike
+        WHERE replyid = #{replyId}
+    </select>
+
+    <select id="checkReplyIsExist" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM reply
+        WHERE id = #{id}
+        AND replyid = #{replyId}
+        AND commentid = #{commentId}
+    </select>
+
+    <delete id="deleteReply">
+        DELETE FROM reply WHERE
+        id = #{id} AND replyid = #{replyId}
+    </delete>
+
+    <delete id="removeReplyLike">
+        DELETE FROM replylike WHERE
+        id = #{id} AND replyid = #{replyId}
+    </delete>
+
+    <insert id="addReply" parameterMap="ReplyParameterMap"
+            useGeneratedKeys="true" keyProperty="replyId"
+            keyColumn="replyid">
+        INSERT INTO reply
+      (id , replycontent , time , commentid)
+      VALUES
+      (#{id},#{replyContent},NOW() ,#{commentId})
+    </insert>
+
+</mapper>

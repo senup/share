@@ -1,0 +1,211 @@
+*{
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+.yq{
+		width: 100%;
+		height: 10000px;
+		background: #F5F6F7;
+}
+.container{
+	width: 1184px;
+	padding: 10px 22px 0 22px;
+	/*border: 1px solid black;*/
+	margin: 0 auto;
+	min-height: 800px;
+
+}
+#nav{
+	
+	float: left;
+    width: 96px;
+    height: 360px;
+    background-color: #fff;
+    margin-right: 14px;
+    text-align: center;
+    line-height: 32px;
+
+    padding: 6px 0;
+    -webkit-box-shadow: 0 1px 2px 0 rgba(0,0,0,0.04);
+    box-shadow: 0 1px 2px 0 rgba(0,0,0,0.04);
+	/*border: 1px solid black;*/ 
+	z-index: 555;
+	
+}
+.posi{
+	position: fixed;
+	top: -6px;
+	left: 18.7%;
+	
+}
+
+.content{
+	
+	width: 1070px;
+	min-height: 10000px;
+	float: right;
+	/*border: 1px solid black;*/
+}
+.clearfix{
+	clear: both;
+	
+}
+
+.container{
+	position: relative;
+	
+}
+
+.container #nav .nva_com li{
+	width: 96px;
+	height: 32px;
+	
+}
+.container #nav .nva_com a{
+	    width: 100%;
+    height: 100%;
+    display: block;
+    font-size: 16px;
+    color: #707070;
+    margin-bottom: 1px;
+
+}
+.content .advertising{
+	width: 1070px;
+	height: 90px;
+	margin-bottom: 8px;
+	/*border: 1px solid black;*/
+	
+}
+.content .advertising .gg1{
+	border: 0;
+    outline: none;
+	vertical-align: middle;
+	width: 760px;
+    height: 90px;
+    margin-right: 5px;
+}
+.content .advertising .gg2{
+	border: 0;
+    outline: none;
+	    vertical-align: middle;
+	    width: 300px;
+    height: 90px;
+}
+main{
+	/*border: 1px solid black;*/
+	float: left;
+    width: 760px;
+    min-height: 500px;
+    margin-right: 8px;
+    box-sizing: border-box;
+}
+ .wenzhang{
+ 	box-sizing:border-box; 
+	
+ 	height: 124px;
+ 	padding: 18px 24px;
+    background: #fff;
+    border-bottom: 1px solid #f4f4f4;
+    position: relative;
+    -webkit-box-shadow: 0 1px 2px 0 rgba(0,0,0,0.04);
+    box-shadow: 0 1px 2px 0 rgba(0,0,0,0.04);
+ 	/*border: 1px solid black;*/
+ 	
+ }
+ #wenz ul{
+ 	width: 760px;
+ 	min-height:500px ;
+ 	box-sizing: border-box;
+ 	
+ }
+ .wenzhang h2 a{
+ 	max-width: 98%;
+    color: #3d3d3d;
+    display: block;
+    line-height: 24px;
+    height: 24px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+ 	
+ }
+.wenzhang h2 a:link{
+	
+	color: #3d3d3d;
+}
+.wenzhang h2{
+	font-size: 18px;
+    font-weight: bold;
+    line-height: 24px;
+    height: 24px;
+    margin-bottom: 4px;
+    overflow: hidden;
+    white-space: nowrap;
+	
+}
+.wenzhang .con{
+	overflow: hidden;
+	text-overflow: ellipsis;
+	margin-bottom: 4px;
+    color: #8a8a8a;
+    font-size: 14px;
+    line-height: 24px;
+    height: 24px;
+	width: 695px;
+	white-space: nowrap;
+}
+.wenzhang .user{
+	width: 712px;
+	height: 24px;
+	
+}
+.wenzhang .user img{
+	width: 24px;
+	height: 24px;
+	border-radius:50% ;
+	float: left;
+    margin: 0 6px 0 0;
+}
+.wenzhang .user .name{
+    float: left;
+    font-size: 14px;
+       color: #3d3d3d;
+    line-height: 24px;
+    margin-right: 2px;
+	
+	
+}
+.wenzhang .user .interval{
+    float: left;
+    width: 1px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #e0e0e0;
+    margin-top: 6px;
+    margin-left: 8px;
+    margin-right: 8px;
+	
+	
+}
+.wenzhang .user .time{
+	    float: left;
+    font-size: 14px;
+    color: #8a8a8a;
+    line-height: 24px;
+	
+}
+
+
+.gg-right{
+	width: 300px;
+	height: 1000px;
+	/*border: 1px solid black;*/
+	float: right;
+}
+
+
+
+
+
